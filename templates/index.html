@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Jetsom webcam streamer</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const recordButton = document.getElementById('record-button');
+
+      recordButton.addEventListener('click', async () => {
+        try {
+          const response = await fetch('/toggle_record');
+          const message = await response.text();
+          recordButton.innerText = message;
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      });
+    });
+  </script>
+  <style>
+    /* Add custom styles if needed */
+    .image-container {
+  border: 1px solid #ddd; /* Add a border for better visibility */
+  padding: 10px; /* Add some padding for spacing */
+  text-align: center; /* Center the content inside the container */
+}
+
+img {
+  max-width: 100%; /* Make the image responsive within its container */
+  height: auto;
+}
+
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .blue-button {
+      background-color: #007BFF;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 image-container">
+        <img src="/video_feed" class="img-fluid">
+      </div>
+      <div class="col-md-6 image-container">
+        <img src="/video_feed2cam" class="img-fluid">
+      </div>
+    </div>
+
+    <div class="row button-container">
+      <button class="blue-button" id="record-button">{{ record_button_text }}</button>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and Popper.js (Optional) -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
